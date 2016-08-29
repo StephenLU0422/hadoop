@@ -3,8 +3,10 @@ package cn.project.mapreduce;
 import java.io.IOException;
 
 import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.MapFile.Reader;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Reducer;
 
 public class WordCountApp {
 	public static void main(String[] args) {
@@ -37,5 +39,23 @@ public class WordCountApp {
 	//排序后的结果是<hello,1><hello,1><me,1><you,1>
 	//分组后的结果是相同2k的放到一个集合中<hello,{1,1}><me,{1}><you,{1}>产生3个分组
 	//<k3,v3>是<hello, 2>,<me, 1>,<you, 1>
-	
+	public static class MyReducer extends Reducer<Text, LongWritable, Text, LongWritable>{
+		LongWritable v3 =new LongWritable();
+		/*MyReducer方法继承Reducer这个类，Reducer的入参是<k2,v2>，输出参数是文本（单词）和总次数*/
+		@Override
+		protected void reduce(Text k2, Iterable<LongWritable> v2s,
+				Reducer<Text, LongWritable, Text, LongWritable>.Context context)
+				throws IOException, InterruptedException {
+			long count =0L;
+			//迭代v2s的集合，迭代出来是v2
+			for (LongWritable v2 : v2s) {
+				count += v2.get();
+			}
+			v3.set(count);
+			//将count的值set进来
+			//将叠加后的值输出
+			context.write(k2, v3);
+		}
+		
+	}
 }
