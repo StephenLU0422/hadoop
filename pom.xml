@@ -15,12 +15,11 @@
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
+     <dependency>          
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.12</version>
+	</dependency>
        <!-- 操作HDFS -->
    	<dependency>
 		<groupId>org.apache.hadoop</groupId>
@@ -43,6 +42,25 @@
 		<artifactId>zookeeper</artifactId>
 		<version>3.4.6</version>
 	</dependency>
+	
+	<!-- MapReduceWordCountApp -->
+     <dependency>
+             <groupId>org.apache.hadoop</groupId>
+             <artifactId>hadoop-mapreduce-client-core</artifactId>
+             <version>2.6.0</version>
+     </dependency>
+
+       <dependency>
+               <groupId>org.apache.hadoop</groupId>
+               <artifactId>hadoop-mapreduce-client-jobclient</artifactId>
+               <version>2.6.0</version>
+       </dependency>
+       <dependency>
+               <groupId>org.apache.hadoop</groupId>
+               <artifactId>hadoop-mapreduce-client-common</artifactId>
+               <version>2.6.0</version>
+       </dependency>
+ 
   </dependencies>
   
 </project>
